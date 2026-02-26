@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Whimsical Simple Interest Calculator</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #fef6ff, #eef9ff, #fff9ef);
+      color: #2d2a32;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 520px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 2px solid #f2d6ff;
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: 0 12px 30px rgba(87, 54, 122, 0.12);
+    }
+
+    .title {
+      margin: 0 0 8px;
+      font-size: 2rem;
+      text-align: center;
+    }
+
+    .subtitle {
+      margin: 0 0 24px;
+      text-align: center;
+      line-height: 1.5;
+      color: #5d5566;
+    }
+
+    .sparkles {
+      text-align: center;
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    .field {
+      margin-bottom: 18px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      border-radius: 14px;
+      border: 1px solid #d8d8e8;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #c38fff;
+      box-shadow: 0 0 0 3px rgba(195, 143, 255, 0.12);
+    }
+
+    .buttons {
+      display: flex;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    button {
+      flex: 1;
+      border: none;
+      border-radius: 14px;
+      padding: 14px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .calc-btn {
+      background: linear-gradient(135deg, #d8a8ff, #a8d8ff);
+      color: #2d2a32;
+    }
+
+    .reset-btn {
+      background: #f6f3f9;
+      color: #4b4453;
+    }
+
+    .result-box {
+      margin-top: 22px;
+      padding: 18px;
+      border-radius: 18px;
+      background: #faf7ff;
+      border: 1px dashed #d9b8ff;
+      display: none;
+    }
+
+    .result-box h2 {
+      margin-top: 0;
+      font-size: 1.2rem;
+    }
+
+    .result-number {
+      font-size: 1.8rem;
+      font-weight: bold;
+      margin: 10px 0;
+      color: #5d2f86;
+    }
+
+    .message {
+      margin: 8px 0 0;
+      color: #5d5566;
+      line-height: 1.5;
+    }
+
+    .footer-note {
+      margin-top: 18px;
+      text-align: center;
+      font-size: 0.92rem;
+      color: #746d7d;
+    }
+
+    @media (max-width: 520px) {
+      .card {
+        padding: 22px;
+      }
+
+      .title {
+        font-size: 1.7rem;
+      }
+
+      .buttons {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="sparkles">✨🌈💸✨</div>
+    <h1 class="title">Whimsical Simple Interest Calculator</h1>
+    <p class="subtitle">
+      A cheerful little calculator that helps you figure out simple interest
+      with just a few numbers.
+    </p>
+
+    <div class="field">
+      <label for="principal">Principal Amount</label>
+      <input type="number" id="principal" placeholder="Enter the principal amount" min="0" step="any" />
+    </div>
+
+    <div class="field">
+      <label for="rate">Rate of Interest (%)</label>
+      <input type="number" id="rate" placeholder="Enter the interest rate" min="0" step="any" />
+    </div>
+
+    <div class="field">
+      <label for="time">Time Period</label>
+      <input type="number" id="time" placeholder="Enter the time period" min="0" step="any" />
+    </div>
+
+    <div class="buttons">
+      <button class="calc-btn" onclick="calculateInterest()">Calculate ✨</button>
+      <button class="reset-btn" onclick="resetForm()">Reset</button>
+    </div>
+
+    <section class="result-box" id="resultBox">
+      <h2>Your Result</h2>
+      <div class="result-number" id="resultValue">0.00</div>
+      <p class="message" id="resultMessage"></p>
+    </section>
+
+    <p class="footer-note">
+      Formula used: (Principal × Rate × Time) ÷ 100
+    </p>
+  </main>
+
+  <script>
+    function calculateInterest() {
+      const principal = parseFloat(document.getElementById("principal").value);
+      const rate = parseFloat(document.getElementById("rate").value);
+      const time = parseFloat(document.getElementById("time").value);
+
+      const resultBox = document.getElementById("resultBox");
+      const resultValue = document.getElementById("resultValue");
+      const resultMessage = document.getElementById("resultMessage");
+
+      if (isNaN(principal) || isNaN(rate) || isNaN(time)) {
+        resultBox.style.display = "block";
+        resultValue.textContent = "Oops!";
+        resultMessage.textContent = "Please fill in all three fields before calculating.";
+        return;
+      }
+
+      if (principal < 0 || rate < 0 || time < 0) {
+        resultBox.style.display = "block";
+        resultValue.textContent = "Oops!";
+        resultMessage.textContent = "Please use positive numbers only.";
+        return;
+      }
+
+      const simpleInterest = (principal * rate * time) / 100;
+
+      resultBox.style.display = "block";
+      resultValue.textContent = simpleInterest.toFixed(2);
+      resultMessage.textContent =
+        "Your simple interest has been calculated successfully. Nice and easy. ✨";
+    }
+
+    function resetForm() {
+      document.getElementById("principal").value = "";
+      document.getElementById("rate").value = "";
+      document.getElementById("time").value = "";
+
+      const resultBox = document.getElementById("resultBox");
+      const resultValue = document.getElementById("resultValue");
+      const resultMessage = document.getElementById("resultMessage");
+
+      resultBox.style.display = "none";
+      resultValue.textContent = "0.00";
+      resultMessage.textContent = "";
+    }
+  </script>
+</body>
+</html>
