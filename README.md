@@ -11,6 +11,7 @@ I wanted this project to feel light, friendly, and easy to use, so instead of ma
 Once those values are entered, it calculates the simple interest using the standard formula:
 
 **Simple Interest = (Principal × Rate × Time) / 100**
+simple interest = (p*t*r)/100
 
 ## Why I made this
 
@@ -51,5 +52,6 @@ So the simple interest is **100**.
 ## Project title
 
 **Whimsical Simple Interest Calculator**
+
 
 This is a beginner-friendly calculator app with a playful design that makes a basic finance formula feel a little less boring.
